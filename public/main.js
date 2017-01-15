@@ -24,6 +24,9 @@ $(function() {
   var $currentInput = $usernameInput.focus();
 
   var socket = io();
+  // var socket = io({transports: ['websocket']});
+  // var socket = io({transports: ['polling']});
+  
 
   function addParticipantsMessage (data) {
     var message = '';
