@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-chat",
+  "version": "1.0.0",
+  "description": "Simple chat using nodeJS, socketIO and expressJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "chat",
+    "socketio"
+  ],
+  "author": "Zoran Todorovic",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.7.2"
+  }
+}
