@@ -1,7 +1,7 @@
 {
   "name": "nodejs-chat",
   "version": "1.0.0",
-  "description": "Simple chat using nodeJS, socketIO and expressJS",
+  "description": "Chat using nodeJS, socketIO and expressJS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
