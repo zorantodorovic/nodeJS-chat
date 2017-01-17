@@ -10,7 +10,7 @@ server.listen(8080, function () {
 });
 
 app.use(express.static(__dirname + '/public'));
-var numUsers = 0;
+var numberOfUsers = 0;
 
 io.set('transports', ['websocket']);
 // io.set('transports', ['polling']);
@@ -28,40 +28,36 @@ io.on('connection', function (socket) {
     if (addedUser) return;
 
     socket.username = username;
-    ++numUsers;
+    ++numberOfUsers;
     addedUser = true;
     socket.emit('login', {
-      numUsers: numUsers
+      numUsers: numberOfUsers
     });
     socket.broadcast.emit('user joined', {
       username: socket.username,
-      numUsers: numUsers
+      numUsers: numberOfUsers
     });
   });
 
-  // when the client emits 'typing', we broadcast it to others
   socket.on('typing', function () {
     socket.broadcast.emit('typing', {
       username: socket.username
     });
   });
 
-  // when the client emits 'stop typing', we broadcast it to others
   socket.on('stop typing', function () {
-    socket.broadcast.emit('stop typing', {
+    socket.broadcast.emit('stopTyping', {
       username: socket.username
     });
   });
 
-  // when the user disconnects.. perform this
   socket.on('disconnect', function () {
     if (addedUser) {
-      --numUsers;
+      --numberOfUsers;
 
-      // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
-        numUsers: numUsers
+        numUsers: numberOfUsers
       });
     }
   });

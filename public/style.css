@@ -9,12 +9,8 @@ html {
 
 html, input {
   font-family:
-    "HelveticaNeue-Light",
-    "Helvetica Neue Light",
-    "Helvetica Neue",
     Helvetica,
     Arial,
-    "Lucida Grande",
     sans-serif;
 }
 
@@ -124,8 +120,6 @@ ul {
   text-align: right;
 }
 
-/* Input */
-
 .inputMessage {
   border: 10px solid #000;
   bottom: 0;
@@ -136,4 +130,66 @@ ul {
   position: absolute;
   right: 0;
   width: 100%;
+}
+
+/* Miturf */
+
+.page__hero {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+
+
+.page__hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 50;
+
+}
+
+.full-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-level-5;
+  background: rgba(30,40,50,0.95);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sweet-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-level-5;
+  background: rgba(30,40,50,0.95);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.non-disposable {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-level-5;
+  background: rgba(30,40,50,0.95);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.hidden {
+  display: none !important;
 }

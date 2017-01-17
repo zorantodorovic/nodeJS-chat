@@ -1,6 +1,6 @@
 $(function() {
-  var FADE_TIME = 150;
-  var TYPING_TIMER_LENGTH = 400;
+  var fadingTime = 100;
+  var typingTime = 300;
   var COLORS = [
     '#e21400', '#91580f', '#f8a700', '#f78b00',
     '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
@@ -8,9 +8,9 @@ $(function() {
   ];
 
   var $window = $(window);
-  var $usernameInput = $('.usernameInput');
-  var $messages = $('.messages'); 
-  var $inputMessage = $('.inputMessage'); 
+  var $usernameInputField = $('.usernameInput');
+  var $messagesField = $('.messages'); 
+  var $inputMessageField = $('.inputMessage'); 
 
   var $loginPage = $('.login.page');
   var $chatPage = $('.chat.page'); 
@@ -19,7 +19,7 @@ $(function() {
   var connected = false;
   var typing = false;
   var lastTypingTime;
-  var $currentInput = $usernameInput.focus();
+  var $currentInput = $usernameInputField.focus();
 
   // var socket = io();
   var socket = io({transports: ['websocket']});
@@ -43,23 +43,23 @@ $(function() {
   }
 
   function setUsername () {
-    username = cleanInput($usernameInput.val().trim());
+    username = cleanInput($usernameInputField.val().trim());
 
     if (username) {
       $loginPage.fadeOut();
       $chatPage.show();
       $loginPage.off('click');
-      $currentInput = $inputMessage.focus();
+      $currentInput = $inputMessageField.focus();
 
       socket.emit('add user', username);
     }
   }
 
   function sendMessage () {
-    var message = $inputMessage.val();
+    var message = $inputMessageField.val();
     message = cleanInput(message);
     if (message && connected) {
-      $inputMessage.val('');
+      $inputMessageField.val('');
       addChatMessage({
         username: username+":",
         message: message
@@ -123,14 +123,14 @@ $(function() {
     }
 
     if (options.fade) {
-      $el.hide().fadeIn(FADE_TIME);
+      $el.hide().fadeIn(fadingTime);
     }
     if (options.prepend) {
-      $messages.prepend($el);
+      $messagesField.prepend($el);
     } else {
-      $messages.append($el);
+      $messagesField.append($el);
     }
-    $messages[0].scrollTop = $messages[0].scrollHeight;
+    $messagesField[0].scrollTop = $messagesField[0].scrollHeight;
   }
 
   function cleanInput (input) {
@@ -148,11 +148,11 @@ $(function() {
       setTimeout(function () {
         var typingTimer = (new Date()).getTime();
         var timeDiff = typingTimer - lastTypingTime;
-        if (timeDiff >= TYPING_TIMER_LENGTH && typing) {
+        if (timeDiff >= typingTime && typing) {
           socket.emit('stop typing');
           typing = false;
         }
-      }, TYPING_TIMER_LENGTH);
+      }, typingTime);
     }
   }
 
@@ -187,7 +187,7 @@ $(function() {
     }
   });
 
-  $inputMessage.on('input', function() {
+  $inputMessageField.on('input', function() {
     updateTyping();
   });
 
@@ -196,8 +196,8 @@ $(function() {
     $currentInput.focus();
   });
 
-  $inputMessage.click(function () {
-    $inputMessage.focus();
+  $inputMessageField.click(function () {
+    $inputMessageField.focus();
   });
 
   // Socket
@@ -230,23 +230,23 @@ $(function() {
     addChatTyping(data);
   });
 
-  socket.on('stop typing', function (data) {
+  socket.on('stopTyping', function (data) {
     removeChatTyping(data);
   });
 
   socket.on('disconnect', function () {
-    log('you have been disconnected');
+    log('odspojeni ste sa chata');
   });
 
   socket.on('reconnect', function () {
-    log('you have been reconnected');
+    log('ponovo ste spojeni na chat');
     if (username) {
       socket.emit('add user', username);
     }
   });
 
   socket.on('reconnect_error', function () {
-    log('attempt to reconnect has failed');
+    log('pogreska u ponovnom spajanju na chat');
   });
 
 });
