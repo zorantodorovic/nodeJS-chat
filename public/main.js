@@ -198,7 +198,7 @@ $(function() {
 
   socket.on('login', function (data) {
     connected = true;
-    var message = "Welcome to Socket.IO Chat – ";
+    var message = "Welcome to Zoran's Chat! ";
     log(message, {
       prepend: true
     });
